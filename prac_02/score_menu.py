@@ -17,28 +17,37 @@ while choice != <quit option>
 
 
 
-
+score = 0
 def main():
+    get_choice = menu()
+    while get_choice != "Q":
+        if get_choice == "G":
+            score = get_valid_score()
+            print(f"Your score is {score}")
+            get_choice = menu()
+        elif get_choice == "P":
+            result = determine_score_result(score)
+            print(f"Your result is {result}")
+            get_choice = menu()
+        elif get_choice == "S":
+            num_of_stars(score)
+            get_choice = menu()
+        else:
+            print("Please Enter a Valid Letter.")
+            get_choice = input("Enter your Choice: ")
+    print("Farewell...")
+
+
+def menu():
     print("MENU:"
           "(G)et a valid score (must be 0-100 inclusive)"
           "\n(P)rint result"
           "\n(S)how stars"
           "\n(Q)uit")
-
     get_choice = input("Enter your Choice: ")
-    while get_choice != "Q":
-        if get_choice == "G":
-            score = get_valid_score()
-            print(f"Your score is {score}")
-        elif get_choice == "P":
-            result = determine_score_result()
-            print(f"Your result is {result}")
-        elif get_choice == "S":
-            num_of_stars(score)
-        else:
-            print("Please Enter a Valid Letter.")
-            get_choice = input("Enter your Choice: ")
-    print("Farewell...")
+    return get_choice
+
+
 def get_valid_score():
     score = int(input("Enter Score: "))
     while score > 100 or score < 0:
