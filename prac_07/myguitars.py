@@ -21,16 +21,47 @@ def display_guitars(guitars):
         print(f"Guitar {i}: {guitar}")
 
 
+def get_new_guitars():
+    """Prompt the user to enter new guitars and return a list of new Guitar objects."""
+    new_guitars = []
+    print("\nEnter new guitars (leave name blank to finish):")
+    while True:
+        name = input("Name: ")
+        if name == "":
+            break
+        try:
+            year = int(input("Year: "))
+            cost = float(input("Cost: "))
+            guitar = Guitar(name, year, cost)
+            new_guitars.append(guitar)
+        except ValueError:
+            print("Invalid input! Please enter numeric values for year and cost.")
+    return new_guitars
+
+
+def save_guitars(filename, guitars):
+    """Write the list of guitars to the CSV file."""
+    with open(filename, 'w') as out_file:
+        for guitar in guitars:
+            print(f"{guitar.name},{guitar.year},{guitar.cost}", file=out_file)
+
+
 def main():
     filename = "guitars.csv"
     guitars = load_guitars(filename)
 
-    print("These are the guitars in original order:")
+    print("These are the guitars loaded from file:")
     display_guitars(guitars)
 
-    print("\nThese are the guitars sorted by year:")
+    new_guitars = get_new_guitars()
+    guitars.extend(new_guitars)
+
+    print("\nThese are all the guitars (including new ones):")
     guitars.sort()
     display_guitars(guitars)
+
+    save_guitars(filename, guitars)
+    print(f"\nGuitars saved to {filename}.")
 
 
 main()
