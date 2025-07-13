@@ -1,5 +1,5 @@
 from project import Project
-
+from datetime import datetime
 
 def load_projects(filename):
     projects = []
@@ -51,20 +51,28 @@ def add_new_project(projects):
 
 def update_project(projects):
     for i in range(len(projects)):
-        print(i, projects[i])
+        print(f"{i} {projects[i]}")
 
     index_input = input("Project choice: ")
-    index = int(index_input)
-    selected_project = projects[index]
-    print(selected_project)
+    if index_input.isdigit():
+        index = int(index_input)
+        if index >= 0 and index < len(projects):
+            selected_project = projects[index]
+            print(selected_project)
 
-    percent_input = input("New Percentage: ")
-    priority_input = input("New Priority: ")
+            percent_input = input("New Percentage: ")
+            priority_input = input("New Priority: ")
 
-    if percent_input != "":
-        selected_project.completion_percentage = int(percent_input)
-    if priority_input != "":
-        selected_project.priority = int(priority_input)
+            if percent_input != "":
+                selected_project.completion_percentage = int(percent_input)
+            if priority_input != "":
+                selected_project.priority = int(priority_input)
+        else:
+            print("Invalid index: out of range.")
+    else:
+        print("Invalid input: please enter a number.")
+
+
 
 def save_projects(filename, projects):
     out_file = open(filename, 'w')
@@ -85,7 +93,7 @@ def filter_projects_by_date(projects):
 
     filtered_projects = []
     for project in projects:
-        if project.start_date > user_date:
+        if project.start_date >= user_date:
             filtered_projects.append(project)
 
     filtered_projects = sort_by_date(filtered_projects)
