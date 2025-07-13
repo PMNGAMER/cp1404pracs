@@ -24,6 +24,13 @@ def display_projects(projects):
     for p in sorted(complete):
         print(f"  {p}")
 
+def save_projects(filename, projects):
+    with open(filename, 'w') as out_file:
+        print("Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage", file=out_file)
+        for p in projects:
+            print(f"{p.name}\t{p.start_date.strftime('%d/%m/%Y')}\t{p.priority}\t{p.cost_estimate}\t{p.completion_percentage}", file=out_file)
+
+
 
 def main():
     print("Welcome to Pythonic Project Management")
