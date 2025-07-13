@@ -26,9 +26,31 @@ def display_projects(projects):
 
 
 def main():
+    print("Welcome to Pythonic Project Management")
     filename = "projects.txt"
     projects = load_projects(filename)
-    display_projects(projects)
+    print(f"Loaded {len(projects)} projects from {filename}")
+
+    MENU = """- (L)oad projects
+- (S)ave projects
+- (D)isplay projects
+- (F)ilter projects by date
+- (A)dd new project
+- (U)pdate project
+- (Q)uit"""
+    print(MENU)
+
+    choice = input(">>> ").lower()
+    while choice != 'q':
+        if choice == 'd':
+            display_projects(projects)
+        else:
+            print("Function not implemented yet.")
+        print(MENU)
+        choice = input(">>> ").lower()
+
+    print("Thank you for using custom-built project management software.")
+
 
 
 main()
