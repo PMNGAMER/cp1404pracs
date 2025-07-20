@@ -18,7 +18,7 @@ class DynamicLabelsApp(App):
         return self.root
 
     def create_labels(self):
-        """Create a label for each name and add it to the layout."""
+        """Create a label for each name and add it to the layout"""
         for name in self.names:
             label = Label(text=name)
             self.root.ids.main.add_widget(label)
