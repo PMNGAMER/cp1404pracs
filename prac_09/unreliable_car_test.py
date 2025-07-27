@@ -26,5 +26,4 @@ def test_unreliable_car():
     print(f"[UnreliableCar] Drove successfully {success_count} out of {test_runs} times (expected ~300).")
 
 
-if __name__ == "__main__":
-    test_unreliable_car()
+test_unreliable_car()
