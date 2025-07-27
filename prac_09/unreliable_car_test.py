@@ -1,16 +1,30 @@
 from unreliable_car import UnreliableCar
 
-# Create UnreliableCar instances
-car1 = UnreliableCar("Mostly Reliable", 100, 90)
-car2 = UnreliableCar("Unreliable Junk", 100, 10)
+def test_unreliable_car():
+    """Test that UnreliableCar behaves according to its reliability."""
+    test_runs = 1000
 
-# Try driving both cars multiple times
-for i in range(5):
-    print(f"\nAttempt {i+1}:")
-    print(f"Before driving: {car1}")
-    car1.drive(30)
-    print(f"After driving: {car1}")
+    # Test for high reliability (90%)
+    reliable_car = UnreliableCar("ReliableCar", 10000, 90)
+    success_count = 0
+    for _ in range(test_runs):
+        # Reset odometer and fuel to a large amount so we can measure only success
+        before_odometer = reliable_car.odometer
+        reliable_car.drive(1)
+        if reliable_car.odometer > before_odometer:
+            success_count += 1
+    print(f"[ReliableCar] Drove successfully {success_count} out of {test_runs} times (expected ~900).")
 
-    print(f"Before driving: {car2}")
-    car2.drive(30)
-    print(f"After driving: {car2}")
+    # Test for low reliability (30%)
+    unreliable_car = UnreliableCar("UnreliableCar", 10000, 30)
+    success_count = 0
+    for _ in range(test_runs):
+        before_odometer = unreliable_car.odometer
+        unreliable_car.drive(1)
+        if unreliable_car.odometer > before_odometer:
+            success_count += 1
+    print(f"[UnreliableCar] Drove successfully {success_count} out of {test_runs} times (expected ~300).")
+
+
+if __name__ == "__main__":
+    test_unreliable_car()
